@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UPS顧客システム</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+
+  <header>
+    <h1>🚗 UPS顧客システム</h1>
+    <div class="tab-buttons">
+      <button class="tablink active" onclick="openTab(event, 'register')">顧客登録</button>
+      <button class="tablink" onclick="openTab(event, 'customerList')">顧客一覧</button>
+      <!-- <button class="btn-secondary" onclick="reloadCustomers()">🔄 最新同期</button> -->
+      <!-- <button class="btn-secondary" onclick="resetData()"
+        style="background:#fee2e2; color:#991b1b; font-size:0.8rem;">🗑 データ初期化</button> -->
+    </div>
+  </header>
+
+
+  <!-- =============================
+       顧客登録タブ
+  ============================== -->
+  <section id="register" class="tabcontent">
+    <h2>顧客登録</h2>
+    <form id="registerForm" class="form-grid">
+      <label>ステータス:</label>
+      <select id="status">
+        <option value="販売">販売</option>
+        <option value="車検">車検</option>
+        <option value="コーティング">コーティング</option>
+      </select>
+
+
+      <label>納車日:</label>
+      <input type="date" id="delivery" />
+
+
+      <label>お客様名:</label>
+      <input type="text" id="name" />
+
+
+      <label>住所:</label>
+      <input type="text" id="address" />
+
+
+      <label>連絡先:</label>
+      <input type="text" id="phone" />
+
+
+      <label>車名:</label>
+      <input type="text" id="car" />
+
+
+      <label>車体番号:</label>
+      <input type="text" id="body" />
+
+
+      <label>色:</label>
+      <input type="text" id="color" />
+
+
+      <label>車検日:</label>
+      <input type="date" id="inspection" />
+
+
+      <label>コーティング施工:</label>
+      <select id="coating">
+        <option value="無し">無し</option>
+        <option value="有り">有り</option>
+      </select>
+
+
+      <label>施工日:</label>
+      <input type="date" id="coatDate" disabled />
+
+
+      <div class="form-button-area">
+        <button type="button" id="registerBtn" class="btn-primary">登録</button>
+      </div>
+    </form>
+
+
+    <h3>顧客一覧（登録直後も反映）</h3>
+    <table id="customerTableRegister">
+      <thead>
+        <tr>
+          <th>ステータス</th>
+          <th>お客様名</th>
+          <th>車名</th>
+          <th>連絡先</th>
+          <th>車検日</th>
+          <th>点検項目</th>
+          <th>編集</th>
+          <th>履歴</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+
+  <!-- =============================
+       顧客一覧タブ
+  ============================== -->
+  <section id="customerList" class="tabcontent" style="display:none;">
+    <h2>顧客一覧</h2>
+    <div class="filter-area">
+      <select id="filterStatus">
+        <option value="">すべて表示</option>
+        <option value="販売">販売</option>
+        <option value="車検">車検</option>
+        <option value="コーティング">コーティング</option>
+      </select>
+      <input type="text" id="filterInput" placeholder="キーワードで検索…" />
+    </div>
+
+
+    <table id="customerTable">
+      <thead>
+        <tr>
+          <th>ステータス</th>
+          <th>お客様名</th>
+          <th>車名</th>
+          <th>連絡先</th>
+          <th>車検日</th>
+          <th>点検項目</th>
+          <th>編集</th>
+          <th>履歴</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+
+  <!-- =============================
+       編集モーダル（縦並びフォーム）
+  ============================== -->
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <h3>顧客情報編集</h3>
+      <input type="hidden" id="editIndex" />
+
+
+      <label>ステータス:</label>
+      <select id="editStatus">
+        <option value="販売">販売</option>
+        <option value="車検">車検</option>
+        <option value="コーティング">コーティング</option>
+      </select>
+
+
+      <label>お客様名:</label>
+      <input type="text" id="editName" />
+
+
+      <label>住所:</label>
+      <input type="text" id="editAddress" />
+
+
+      <label>連絡先:</label>
+      <input type="text" id="editPhone" />
+
+
+      <label>車名:</label>
+      <input type="text" id="editCar" />
+
+
+      <label>車体番号:</label>
+      <input type="text" id="editBody" />
+
+
+      <label>色:</label>
+      <input type="text" id="editColor" />
+
+
+      <label>車検日:</label>
+      <input type="date" id="editInspection" />
+
+
+      <label>コーティング施工:</label>
+      <select id="editCoating">
+        <option value="無し">無し</option>
+        <option value="有り">有り</option>
+      </select>
+
+
+      <label>施工日:</label>
+      <input type="date" id="editCoatDate" />
+
+
+      <label>納車日:</label>
+      <input type="date" id="editDelivery" />
+
+
+      <div class="modal-buttons">
+        <button class="btn-primary" onclick="saveEdit()">保存</button>
+        <button class="btn-secondary" onclick="closeModal('editModal')">閉じる</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- =============================
+       履歴モーダル
+  ============================== -->
+  <div id="historyModal" class="modal">
+    <div class="modal-content modal-wide">
+      <h3 id="historyTitle">履歴</h3>
+      <input type="hidden" id="historyIndex" />
+      <div class="history-meta">
+        <div class="history-lines">
+          <div class="meta-row">
+            <span>車名：<strong id="historyCar">-</strong></span>
+            <span class="meta-spacer"></span>
+            <span>車検日：<strong id="historyInspection">-</strong></span>
+          </div>
+          <div class="meta-row">
+            <span>TEL：<strong id="historyPhone">-</strong></span>
+          </div>
+        </div>
+        <div class="history-checks">
+          <label class="checkbox"><input type="checkbox" id="historyGoogle" /> <span>Google口コミ</span></label>
+          <label class="checkbox"><input type="checkbox" id="historyCarsensor" /> <span>カーセンサー</span></label>
+        </div>
+      </div>
+      <hr class="divider" />
+      <div class="history-body">
+        <div class="left-input">
+          <label style="display:block; margin-bottom:5px; font-weight:bold;">日時:</label>
+          <input type="datetime-local" id="historyDate"
+            style="width:100%; margin-bottom:10px; padding:8px; border:1px solid #ccc; border-radius:4px;">
+          <textarea id="newNote" placeholder="アプローチ内容を入力してください"></textarea>
+          <div class="modal-buttons">
+            <button class="btn-primary" onclick="addNote()">履歴を追加</button>
+            <button class="btn-secondary" onclick="closeModal('historyModal')">閉じる</button>
+          </div>
+        </div>
+        <div class="right-list">
+          <input type="text" id="historySearch" placeholder="履歴をキーワードで検索…" />
+          <div id="historyList" class="history-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="script.js"></script>
+</body>
+
+</html>

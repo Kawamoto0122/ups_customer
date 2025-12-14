@@ -1,0 +1,546 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap');
+
+/* ==========================================================================
+   RESET & VARIABLES
+   ========================================================================== */
+:root {
+  /* Colors */
+  --primary: #0f766e;
+  /* Teal 700 */
+  --primary-hover: #115e59;
+  /* Teal 800 */
+  --secondary: #64748b;
+  /* Slate 500 */
+  --secondary-hover: #475569;
+  /* Slate 600 */
+  --accent: #0ea5e9;
+  /* Sky 500 */
+
+  --bg-body: #f1f5f9;
+  /* Slate 100 */
+  --bg-card: #ffffff;
+
+  --text-main: #1e293b;
+  /* Slate 800 */
+  --text-muted: #64748b;
+  /* Slate 500 */
+
+  --border: #e2e8f0;
+  /* Slate 200 */
+
+  /* Status Colors */
+  --status-sales: #dbeafe;
+  /* Blue 100 */
+  --text-sales: #1e40af;
+  /* Blue 800 */
+  --status-inspection: #dcfce7;
+  /* Green 100 */
+  --text-inspection: #166534;
+  /* Green 800 */
+  --status-coating: #ffedd5;
+  /* Orange 100 */
+  --text-coating: #9a3412;
+  /* Orange 800 */
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+header {
+  background: var(--bg-card);
+  padding: 1rem 2rem;
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tab-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
+button {
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 9999px;
+  /* Pill shape */
+  border: none;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+/* Tab Links */
+.tablink {
+  background: transparent;
+  color: var(--text-muted);
+  padding: 0.5rem 1.25rem;
+}
+
+.tablink:hover {
+  background: #f8fafc;
+  color: var(--text-main);
+}
+
+.tablink.active {
+  background: var(--primary);
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Primary Button */
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  padding: 0.6rem 1.5rem;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Secondary Button */
+.btn-secondary {
+  background: white;
+  color: var(--text-main);
+  border: 1px solid var(--border);
+  padding: 0.5rem 1rem;
+}
+
+.btn-secondary:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+/* ==========================================================================
+   LAYOUT
+   ========================================================================== */
+.tabcontent {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+h2 {
+  font-size: 1.25rem;
+  color: var(--text-main);
+  margin-bottom: 1.5rem;
+  border-left: 4px solid var(--primary);
+  padding-left: 1rem;
+}
+
+/* ==========================================================================
+   FORMS
+   ========================================================================== */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  background: var(--bg-card);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* 元のHTML構造(LabelとInputが並列)に対応させるためのGrid Hack */
+#registerForm.form-grid {
+  grid-template-columns: 140px 1fr 140px 1fr;
+  align-items: center;
+}
+
+#registerForm label {
+  text-align: right;
+  font-weight: 500;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+#registerForm input,
+#registerForm select {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #f8fafc;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+}
+
+#registerForm input:focus,
+#registerForm select:focus {
+  background: white;
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
+}
+
+/* Button Area in Form */
+.form-button-area {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.form-button-area .btn-primary {
+  width: 200px;
+  font-size: 1rem;
+  padding: 0.8rem;
+}
+
+/* ==========================================================================
+   TABLES
+   ========================================================================== */
+.table-wrapper {
+  background: var(--bg-card);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #f1f5f9;
+  border-bottom: 2px solid var(--border);
+}
+
+th {
+  padding: 1rem;
+  text-align: left;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.95rem;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:hover td {
+  background-color: #f8fafc;
+}
+
+/* Checkbox Alignment */
+.checks-inline {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.checks-inline label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   MODALS
+   ========================================================================== */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background-color: rgba(15, 23, 42, 0.6);
+  /* Slate 900 / 60% */
+  backdrop-filter: blur(4px);
+  padding: 1rem;
+  overflow-y: auto;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.modal[style*="block"] {
+  display: flex !important;
+  /* Force flex for centering */
+  opacity: 1;
+}
+
+.modal-content {
+  background: var(--bg-card);
+  width: 100%;
+  max-width: 600px;
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
+  padding: 0;
+  /* Header separation */
+  overflow: hidden;
+  transform: scale(0.95);
+  transition: transform 0.3s;
+}
+
+.modal[style*="block"] .modal-content {
+  transform: scale(1);
+}
+
+.modal-content h3 {
+  background: var(--primary);
+  color: white;
+  margin: 0;
+  padding: 1.25rem 2rem;
+  font-size: 1.1rem;
+}
+
+/* Edit Form inside Modal */
+#editModal .modal-content {
+  padding-bottom: 2rem;
+}
+
+#editModal label {
+  display: block;
+  margin: 1rem 2rem 0.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+#editModal input,
+#editModal select {
+  display: block;
+  width: calc(100% - 4rem);
+  margin: 0 2rem;
+  padding: 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.modal-buttons {
+  padding: 1.5rem 2rem 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+/* ==========================================================================
+   HISTORY MODAL
+   ========================================================================== */
+.modal-wide {
+  max-width: 900px;
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.history-meta {
+  background: #f8fafc;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.meta-row span {
+  font-weight: 500;
+  margin-right: 1.5rem;
+}
+
+.meta-row strong {
+  margin-left: 0.5rem;
+  color: var(--primary);
+}
+
+.history-body {
+  display: flex;
+  gap: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Left Panel: Input */
+.left-input {
+  flex: 1;
+  padding: 1.5rem 2rem;
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  background: white;
+}
+
+.left-input textarea {
+  flex: 1;
+  margin-top: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  resize: none;
+  font-size: 1rem;
+}
+
+.left-input textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+/* Right Panel: List */
+.right-list {
+  flex: 1;
+  padding: 1.5rem 2rem;
+  background: #f8fafc;
+  display: flex;
+  flex-direction: column;
+}
+
+.right-list input {
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  margin-bottom: 1rem;
+}
+
+.history-list {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.history-item {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid transparent;
+  transition: all 0.2s;
+}
+
+.history-item:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-md);
+}
+
+.history-item .ts {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.history-btns {
+  float: right;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.history-item:hover .history-btns {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 768px) {
+  #registerForm.form-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  #registerForm label {
+    text-align: left;
+    margin-top: 0.5rem;
+  }
+
+  .history-body {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .left-input,
+  .right-list {
+    border: none;
+    height: auto;
+  }
+}
