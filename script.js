@@ -179,13 +179,7 @@ async function loadFromSheet() {
     console.log("✅ スプレッドシートから全データ同期完了");
   } catch (err) {
     console.error("❌ シート読み込みエラー:", err);
-    // 詳細なエラーをユーザーに通知（デバッグ用）
-    const btn = document.querySelector(".btn-secondary");
-    if (btn) {
-      btn.textContent = "⚠️ 同期エラー";
-      btn.style.background = "#fee2e2";
-      btn.style.color = "#991b1b";
-    }
+    // 詳細なエラーをユーザーに通知（デバッグ用 - UI非表示要望のため削除）
   }
 }
 
@@ -546,8 +540,7 @@ async function checkSheetUpdates() {
       renderCustomerList();
     }
 
-    if (btn) btn.textContent = "✅ 最新維持";
-    setTimeout(() => { if (btn) btn.textContent = "🔄 最新同期"; }, 2000);
+
 
   } catch (err) {
     console.warn("⏳ 同期チェック失敗:", err);
