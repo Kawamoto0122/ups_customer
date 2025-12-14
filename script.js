@@ -491,8 +491,8 @@ setInterval(checkSheetUpdates, 30000);
 
 async function checkSheetUpdates() {
   try {
-    const btn = document.querySelector(".btn-secondary"); // 更新ボタン
-    if (btn) btn.textContent = "🔄 同期中...";
+    // const btn = document.querySelector(".btn-secondary"); // 更新ボタン (非表示化に伴い削除)
+    // if(btn) btn.textContent = "🔄 同期中...";
 
     const ts = Date.now();
     const headers = { "Content-Type": "text/plain" }; // no-corsでもリクエストは飛ぶ
