@@ -1,7 +1,7 @@
 // =========================
 // 設定
 // =========================
-const GAS_URL = "https://script.google.com/macros/s/AKfycbyeOMqGvZoSyRMfdLZ4lC6gRk8YZovx3lHQXMuwCQlLGn8sgJosvkiwax2tqBuMjArx/exec";
+const GAS_URL = "https://script.google.com/macros/s/AKfycbzzTjNi_UB_rUj6h-zOuXXa1NAhvII-6ZYudyRLWzC15TxI-h24EH1h0rIWqJSplYAB/exec";
 let customers = JSON.parse(localStorage.getItem("customers")) || [];
 
 // =========================
