@@ -1,6 +1,6 @@
-# UPS Customer System
+# FarmyGarage
 
-A customer management dashboard for UPS, integrated with Google Sheets via Google Apps Script (GAS).
+A customer management dashboard for FarmyGarage, integrated with Google Sheets via Google Apps Script (GAS).
 
 ## Features
 - **Customer Registration**: Register new customers with vehicle details.
